@@ -30,13 +30,13 @@
                 - Using an hard-coded sample URL, parse the JSON (bullet points)
                 - Get sample equipment selection and "fetch URLs"
     -->
-        <?php echo
+        <?php
         $production = false;
         $bullet_points_path = 'Page.product-summary.ProductOverview';
         $bullet_points_path_array = explode('.', $bullet_points_path);
 
         if (!$production){
-            echo '<p>Production: '.( $production ? 'true' : 'false').'</p>';
+            echo '<h2>Production: '.( $production ? 'true' : 'false').'</h2>';
             $testing_url = 'https://www.deere.com/en/hay-forage/harvesting/self-propelled-forage-harvesters/9600-forage-harvester/index.json';
             $json = json_decode(file_get_contents($testing_url), true);
 
