@@ -5,6 +5,9 @@
     </head>
     <body>
         <?php
+
+//------BEGIN utility functions-------
+
             //utility for_each wrapper
             function equipment_foreach($equipment, $function){
                 foreach ($equipment as $key => $value){
@@ -12,17 +15,22 @@
                 }
             }
 
+            //utility for getting JSON from URL
             function get_json($url){
                 $json = json_decode(file_get_contents($url), true);
                 return $json;
             }
 
+            //utility to get "bullet points" from JSON
             function get_bullet_points($json){
                 $bullet_points_path = 'Page.product-summary.ProductOverview';
                 $bullet_points_path_array = explode('.', $bullet_points_path);
                 $bullet_points = $json[$bullet_points_path_array[0]][$bullet_points_path_array[1]][$bullet_points_path_array[2]];
                 return $bullet_points;
             }
+
+//------END utility functions-------
+//------BEGIN main script-----------
 
             function equipment_getUrl($e){
                 //TODO: Query SQL database for URL
