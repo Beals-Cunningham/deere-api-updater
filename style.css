@@ -1,6 +1,9 @@
 body{
     padding: 2rem;
     font-family: sans-serif;
+    background-color: rgb(55, 61, 67);
+    color: seashell;
+
 }
 
 option:hover{

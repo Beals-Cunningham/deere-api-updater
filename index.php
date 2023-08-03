@@ -35,17 +35,9 @@
     -->
         <?php
         $production = false;
-        $bullet_points_path = 'Page.product-summary.ProductOverview';
-        $bullet_points_path_array = explode('.', $bullet_points_path);
 
         if (!$production){
             echo '<h2>Production: '.( $production ? 'true' : 'false').'</h2>';
-            $testing_url = 'https://www.deere.com/en/hay-forage/harvesting/self-propelled-forage-harvesters/9600-forage-harvester/index.json';
-            $json = json_decode(file_get_contents($testing_url), true);
-
-            // Bullet points
-            $bullet_points = $json[$bullet_points_path_array[0]][$bullet_points_path_array[1]][$bullet_points_path_array[2]];
-            echo '<p>'.$bullet_points.'</p>';
         }
         ?>
 
