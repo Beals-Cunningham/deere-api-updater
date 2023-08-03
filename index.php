@@ -28,6 +28,7 @@
             - August 3rd
                 - Initialize repository and roadmap
                 - Using an hard-coded sample URL, parse the JSON (bullet points)
+                - Get sample equipment selection and "fetch URLs"
     -->
         <?php echo
         $production = false;
