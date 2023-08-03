@@ -61,6 +61,10 @@
                 <option value="9700i">9700i</option>
                 <option value="9800i">9800i</option>
                 <option value="9900i">9900i</option>
+                <option value="333G">333G</option>
+                <option value="335G">335G</option>
+                <option value="337G">337G</option>
+                <option value="340G">340G</option>
             </select>
             <input type="submit" value="Submit">
     </body>

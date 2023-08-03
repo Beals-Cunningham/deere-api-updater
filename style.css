@@ -2,3 +2,20 @@ body{
     padding: 2rem;
     font-family: sans-serif;
 }
+
+option:hover{
+    background-color: #f1f1f1;
+}
+
+
+option:not(:last-child){
+    padding-bottom: 0.25rem;
+}
+
+option:not(:first-child){
+    padding-top: 0.25rem;
+}
+
+option:checked{
+    font-weight: bold;
+}
