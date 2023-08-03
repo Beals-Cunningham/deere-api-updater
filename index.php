@@ -1,4 +1,7 @@
 <html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
     <body>
         <!--
         -- Info --
@@ -48,12 +51,16 @@
 
         <form action="submit.php" method="post">
             <label for="equipment">Equipment:</label>
-            <select name="equipment[]" id="equipment" multiple>
+            <select name="equipment[]" id="equipment" multiple size=20 style = "width:100%; font-size:1rem;">
 
                 <option value="9600">9600</option>
                 <option value="9700">9700</option>
                 <option value="9800">9800</option>
                 <option value="9900">9900</option>
+                <option value="9600i">9600i</option>
+                <option value="9700i">9700i</option>
+                <option value="9800i">9800i</option>
+                <option value="9900i">9900i</option>
             </select>
             <input type="submit" value="Submit">
     </body>
