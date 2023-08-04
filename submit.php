@@ -30,9 +30,6 @@
                 return $bullet_points;
             }
 
-//------END utility functions-------
-//------BEGIN main script-----------
-
             function equipment_getUrl($e){
                 //Should get $urls from GLOBALS
                 if (array_key_exists($e, $_SESSION['urls'])){
@@ -43,6 +40,9 @@
                 }
                 return $url;
             }
+
+//------END utility functions-------
+//------BEGIN main script-----------
 
             if (array_key_exists('equipment', $_POST)){
             $equipment = $_POST['equipment'];
@@ -61,7 +61,10 @@
                 // Bullet points
                 $bullet_points = get_bullet_points($json);
                 echo '<p>'.$bullet_points.'</p>';
-            });} else {
+            });} 
+
+            //No equipment selected; error
+            else {
                 echo '<p class="error">No equipment selected</p>';
             }
 
