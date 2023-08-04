@@ -27,3 +27,6 @@
                 - Initialize repository and roadmap
                 - Using an hard-coded sample URL, parse the JSON (bullet points)
                 - Get sample equipment selection and "fetch URLs"
+            - August 4th
+                - Populate equipment list from SQL database (very slow!)
+                - Get equip_link value from SQL database for each selected equipment on form submission
