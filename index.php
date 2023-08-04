@@ -124,6 +124,7 @@
             echo '<p class="success">Query returned: '.$num_rows.' rows</p>';
         }
         
+        // Logging (remove for production)
         if ($equipment === []){
             echo '<p class="error">Query result is empty; query refused</p>';
             if ($db){
@@ -135,6 +136,7 @@
         } else {
             echo '<p class="success">Equipment list populated</p>';
         }
+        // End logging
 
         $_SESSION['urls'] = $urls;
 
