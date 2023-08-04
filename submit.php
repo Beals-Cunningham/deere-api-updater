@@ -33,16 +33,12 @@
 //------BEGIN main script-----------
 
             function equipment_getUrl($e){
-                //TODO: Query SQL database for URL
-                //for now, just return a sample URL
-                $urls = [
-                    '9600' => 'https://www.deere.com/en/hay-forage/harvesting/self-propelled-forage-harvesters/9600-forage-harvester/index.json',
-                ];
-                if (array_key_exists($e, $urls)){
-                    $url = $urls[$e];
+                //Should get $urls from GLOBALS
+                if (array_key_exists($e, $GLOBALS['urls'])){
+                    $url = $GLOBALS['urls'][$e];
                     return $url;
                 } else {
-                    return 'https://example.com/'.$e.'.json';
+                    return 'Failed to fetch URL for '.$e;
                 }
                 return $url;
             }

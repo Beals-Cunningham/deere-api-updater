@@ -22,3 +22,11 @@ option:not(:first-child){
 option:checked{
     font-weight: bold;
 }
+
+.success{
+    color: MediumAquamarine;
+}
+
+.error{
+    color: chocolate;
+}
