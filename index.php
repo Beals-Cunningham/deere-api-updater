@@ -50,6 +50,12 @@
         $port = $env["PORT"];
         $production = $env["PRODUCTION"];
 
+        if ($hostname){
+            echo '<p class="success">Successfully reading .ENV values<br/>Hostname: '.$hostname.'</p>';
+        } else {
+            echo '<p class="error">Hostname not set</p>';
+        }
+
         //connect to database
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $db = mysqli_connect(
@@ -68,13 +74,9 @@
         }
 
         //check if production
-
-        if (!$production){
-            echo '<h2>Production: '.( $production ? 'true' : 'false').'</h2>';
-        }
+        echo '<p>Development: '.( !$production ? '<span class = "success">true</span>' : '<span class = "error">false</span>').'</p>';
 
         //populate form from database
-
         $equipment = [];
         $urls = [];
 
@@ -93,6 +95,12 @@
             }
         } else {
             $result = $_SESSION['result'];
+        }
+        
+        if ($equipment === []){
+            echo '<p class="error">Query result is empty (rate limited?)</p>';
+        } else {
+            echo '<p class="success">Equipment list populated</p>';
         }
 
         $_SESSION['urls'] = $urls;
