@@ -18,8 +18,15 @@
 
             //utility for getting JSON from URL
             function get_json($url){
+                if (!$url){
+                    return false;
+                }
                 $json = json_decode(file_get_contents($url), true);
-                return $json;
+                if ($json){
+                    return $json;
+                } else {
+                    return false;
+                }
             }
 
             //utility to get "bullet points" from JSON
@@ -57,10 +64,12 @@
 
                 // URL to JSON
                 $json = get_json($e_url);
-    
+                if ($json){
                 // Bullet points
                 $bullet_points = get_bullet_points($json);
                 echo '<p>'.$bullet_points.'</p>';
+                }
+                else {echo '<p class="error">Failed to get JSON: URL returned "404 Not Found"</p>';}
             });} 
 
             //No equipment selected; error
