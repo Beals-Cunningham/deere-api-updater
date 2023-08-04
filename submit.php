@@ -5,6 +5,7 @@
     </head>
     <body>
         <?php
+        echo '<p>'.$GLOBALS['urls'].'</p>';
 
 //------BEGIN utility functions-------
 
@@ -34,8 +35,8 @@
 
             function equipment_getUrl($e){
                 //Should get $urls from GLOBALS
-                if (array_key_exists($e, $GLOBALS['urls'])){
-                    $url = $GLOBALS['urls'][$e];
+                if (array_key_exists($e, $_SESSION['urls'])){
+                    $url = $_SESSION['urls'][$e];
                     return $url;
                 } else {
                     return 'Failed to fetch URL for '.$e;

@@ -33,13 +33,14 @@
                 - Using an hard-coded sample URL, parse the JSON (bullet points)
                 - Get sample equipment selection and "fetch URLs"
             - August 4th
-                - Populate equipment list from SQL database (very slow! Consider caching)
+                - Populate equipment list from SQL database (very slow!)
     -->
         <?php
+        session_start();
         //get ENV values
         //Currently, for testing, R and S Database is hardcoded
         //TODO: Make this dynamic
-        $GLOBALS['urls'] = [];
+        $_SESSION['urls'] = [];
 
         $env = parse_ini_file('.env');
         $hostname = $env["HOSTNAME"];
@@ -61,41 +62,40 @@
         $db->set_charset("utf8mb4");
 
         if ($db->connect_error){
-            echo '<p class="success">Database connection error</p>';
+            echo '<p class="error">Database connection error</p>';
         } else {
-            echo '<p class="error">Database connection successful</p>';
+            echo '<p class="success">Database connection successful</p>';
         }
+
+        //check if production
 
         if (!$production){
             echo '<h2>Production: '.( $production ? 'true' : 'false').'</h2>';
         }
 
-        //TODO: populate equipment list from SQL database
-        if (!isset($GLOBALS['result']) || $GLOBALS['result'] === []){
-            $result = $db->query("SELECT * FROM randsdatabase.deere_equipment", MYSQLI_USE_RESULT);
-            $GLOBALS['result'] = $result;
-        } else {
-            $result = $GLOBALS['result'];
-        }
-        
+        //populate form from database
+
         $equipment = [];
+        $urls = [];
 
-        if (!isset($GLOBALS['urls']) || $GLOBALS['urls'] === []){
-            $GLOBALS['urls'] = [];
-        }
-
-        $urls = $GLOBALS['urls'];
-
-        if ($result){
-            while ($row = $result->fetch_assoc()){
-                array_push($equipment, $row['title']);
-                $urls[$row['title']] = $row['equip_link'];
+        if (!isset($_SESSION['result']) || $_SESSION['result'] === []){
+            $result = $db->query("SELECT * FROM randsdatabase.deere_equipment", MYSQLI_USE_RESULT);
+            $_SESSION['result'] = $result;
+            if ($result){
+                while ($row = $result->fetch_assoc()){
+                    array_push($equipment, $row['title']);
+                    $urls[$row['title']] = $row['equip_link'];
+                }
+                $result->close();
+                $db->next_result();
+            } else {
+                echo '<p class="error">Database query error</p>';
             }
-            $result->close();
-            $db->next_result();
         } else {
-            echo '<p class="error">Database query error</p>';
+            $result = $_SESSION['result'];
         }
+
+        $_SESSION['urls'] = $urls;
 
         //end connection
         mysqli_close($db);
