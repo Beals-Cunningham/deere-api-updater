@@ -44,7 +44,7 @@
         $_SESSION['urls'] = [];
 
         $env = parse_ini_file('.env');
-        $hostname = $env["HOSTNAME"];
+        $hostname = 'p:'.$env["HOSTNAME"];
         $username = $env["USERNAME"];
         $password = $env["PASSWORD"];
         $database = $env["DATABASE"];
