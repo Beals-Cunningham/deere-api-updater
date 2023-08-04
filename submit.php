@@ -44,6 +44,7 @@
                 return $url;
             }
 
+            if (array_key_exists('equipment', $_POST)){
             $equipment = $_POST['equipment'];
             if (!gettype($equipment) === 'array'){
                 $equipment = [$equipment];
@@ -60,7 +61,9 @@
                 // Bullet points
                 $bullet_points = get_bullet_points($json);
                 echo '<p>'.$bullet_points.'</p>';
-            });
+            });} else {
+                echo '<p class="error">No equipment selected</p>';
+            }
 
         ?>
     </body>

@@ -50,11 +50,15 @@
         $port = $env["PORT"];
         $production = $env["PRODUCTION"];
 
+        echo '<p>Development: '.( !$production ? '<span class = "success">true</span>' : '<span class = "error">false</span>').'</p>';
+
         if ($hostname){
-            echo '<p class="success">Successfully reading .ENV values<br/>Hostname: '.$hostname.'</p>';
+            echo '<p class="success">Successfully read .ENV values<br/>Hostname: '.$hostname.'</p>';
         } else {
-            echo '<p class="error">Hostname not set</p>';
+            echo '<p class="error">Failed to read "HOSTNAME" from .ENV: Hostname not set</p>';
         }
+
+        echo '<p class = "success">'.'Client: '.$_SERVER['REMOTE_ADDR'].'</p>';
 
         //connect to database
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -72,9 +76,6 @@
         } else {
             echo '<p class="success">Database connection successful</p>';
         }
-
-        //check if production
-        echo '<p>Development: '.( !$production ? '<span class = "success">true</span>' : '<span class = "error">false</span>').'</p>';
 
         //populate form from database
         $equipment = [];
