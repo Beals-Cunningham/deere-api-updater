@@ -5,7 +5,6 @@
     </head>
     <body>
         <?php
-        echo '<p>'.$GLOBALS['urls'].'</p>';
 
 //------BEGIN utility functions-------
 
