@@ -51,6 +51,11 @@
         $port = $env["PORT"];
         $production = $env["PRODUCTION"];
 
+        //These are set by John Deere- by storing them in an ENV, they be changed if John Deere updates their API
+        $url_column = $env["URL_COLUMN"];
+        $title_column = $env["TITLE_COLUMN"];
+
+        //Logging (remove for production)
         echo ( !$production ? '<span class = "success">Using development environment</span>' : '<span class = "error">Using production environment- if you\'re seeing this, you\'ve done something very wrong</span>');
 
         if ($hostname){
@@ -63,7 +68,8 @@
 
         echo '<p class = "success">'.'Client: '.$_SERVER['REMOTE_ADDR'].'</p>';
         echo '<p class = "success">'.'Protocol: '.$_SERVER['SERVER_PROTOCOL'].'</p>';
-        
+        //End logging
+
 
         //connect to database
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -76,11 +82,13 @@
         );
         $db->set_charset("utf8mb4");
 
+        //Logging (remove for production)
         if ($db->connect_error){
             echo '<p class="error">Database connection error</p>';
         } else {
             echo '<p class="success">Database connection successful</p>';
         }
+        //End logging
 
         //populate form from database
         $equipment = [];
@@ -91,8 +99,8 @@
             $_SESSION['result'] = $result;
             if ($result){
                 while ($row = $result->fetch_assoc()){
-                    array_push($equipment, $row['title']);
-                    $urls[$row['title']] = $row['equip_link'];
+                    array_push($equipment, $row[$title_column]);
+                    $urls[$row[$title_column]] = $row[$url_column];
                 }
                 $result->close();
                 $db->next_result();
