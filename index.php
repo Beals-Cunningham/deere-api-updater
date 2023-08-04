@@ -53,6 +53,8 @@
         $port = $env["PORT"];
         $production = $env["PRODUCTION"];
 
+        $_SESSION['$bullet_points_path'] = $env["BULLET_POINTS_PATH"];
+
         $num_rows = 0;
 
         //These are set by John Deere- by storing them in an ENV, they be changed if John Deere updates their API

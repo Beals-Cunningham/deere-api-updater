@@ -9,14 +9,14 @@
 
 //------BEGIN utility functions-------
 
-            //utility for_each wrapper
+            // utility for_each wrapper
             function equipment_foreach($equipment, $function){
                 foreach ($equipment as $key => $value){
                     $function($value);
                 }
             }
 
-            //utility for getting JSON from URL
+            // utility for getting JSON from URL
             function get_json($url){
                 if (!$url){
                     return false;
@@ -29,16 +29,15 @@
                 }
             }
 
-            //utility to get "bullet points" from JSON
+            // utility to get "bullet points" from JSON
             function get_bullet_points($json){
-                $bullet_points_path = 'Page.product-summary.ProductOverview';
-                $bullet_points_path_array = explode('.', $bullet_points_path);
+                $bullet_points_path_array = explode('.', $_SESSION['$bullet_points_path']);
                 $bullet_points = $json[$bullet_points_path_array[0]][$bullet_points_path_array[1]][$bullet_points_path_array[2]];
                 return $bullet_points;
             }
 
+            // utility to get URL from _SESSION
             function equipment_getUrl($e){
-                //Should get $urls from GLOBALS
                 if (array_key_exists($e, $_SESSION['urls'])){
                     $url = $_SESSION['urls'][$e];
                     return $url;
@@ -72,7 +71,7 @@
                 else {echo '<p class="error">Failed to get JSON: URL returned "404 Not Found"</p>';}
             });} 
 
-            //No equipment selected; error
+            // No equipment selected; error
             else {
                 echo '<p class="error">No equipment selected</p>';
             }
