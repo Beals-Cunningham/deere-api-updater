@@ -1,6 +1,6 @@
 # deere-api-updater
-## A script to update the SQL database with John Deere equipment information from the John Deere API.
-### Find additional info in `index.php` comments
+A script to update the SQL database with John Deere equipment information from the John Deere API.
+Find additional info in `index.php` comments
 
 ## Preview
 * Download with `git clone` or download the zip file.
