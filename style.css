@@ -30,3 +30,8 @@ option:checked{
 .error{
     color: chocolate;
 }
+
+select{
+    font-size: 1rem;
+    width: 100%;
+}

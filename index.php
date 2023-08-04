@@ -34,6 +34,7 @@
                 - Get sample equipment selection and "fetch URLs"
             - August 4th
                 - Populate equipment list from SQL database (very slow!)
+                - Get equip_link value from SQL database for each selected equipment on form submission
     -->
         <?php
         session_start();
@@ -50,10 +51,10 @@
         $port = $env["PORT"];
         $production = $env["PRODUCTION"];
 
-        echo '<p>Development: '.( !$production ? '<span class = "success">true</span>' : '<span class = "error">false</span>').'</p>';
+        echo ( !$production ? '<span class = "success">Using development environment</span>' : '<span class = "error">Using production environment- if you\'re seeing this, you\'ve done something very wrong</span>');
 
         if ($hostname){
-            echo '<p class="success">Successfully read .ENV values<br/>Hostname: '.$hostname.'</p>';
+            echo '<p class="success">Successfully read .ENV values<br/>Host: '.$hostname.':'.$port.'</p>';
         } else {
             echo '<p class="error">Failed to read "HOSTNAME" from .ENV: Hostname not set</p>';
         }
@@ -99,7 +100,13 @@
         }
         
         if ($equipment === []){
-            echo '<p class="error">Query result is empty (rate limited?)</p>';
+            echo '<p class="error">Query result is empty; query refused</p>';
+            if ($db){
+                echo '<p class="error">Database connection rate-limited</p>';
+            }
+            else {
+                echo '<p class="error">Query error</p>';
+            }
         } else {
             echo '<p class="success">Equipment list populated</p>';
         }
@@ -111,8 +118,9 @@
         ?>
 
         <form action="submit.php" method="post">
+        <input type="submit" value="Submit"><br/>
             <label for="equipment">Equipment:</label>
-            <select name="equipment[]" id="equipment" multiple size=40 style = "width:100%; font-size:1rem;">
+            <select name="equipment[]" id="equipment" multiple size=50>
                 <?php
                 foreach ($equipment as $key => $value){
                     echo '<option value="'.$value.'">'.$value.'</option>';
