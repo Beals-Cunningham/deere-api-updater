@@ -48,8 +48,12 @@
         $username = $env["USERNAME"];
         $password = $env["PASSWORD"];
         $database = $env["DATABASE"];
+        $table = $env["TABLE"];
+        $charset = $env["CHARSET"];
         $port = $env["PORT"];
         $production = $env["PRODUCTION"];
+
+        $num_rows = 0;
 
         //These are set by John Deere- by storing them in an ENV, they be changed if John Deere updates their API
         $url_column = $env["URL_COLUMN"];
@@ -80,7 +84,7 @@
             $database,
             $port,
         );
-        $db->set_charset("utf8mb4");
+        $db->set_charset($charset);
 
         //Logging (remove for production)
         if ($db->connect_error){
@@ -94,14 +98,20 @@
         $equipment = [];
         $urls = [];
 
+        $qu = 'SELECT * FROM '.$database.'.'.$table;
+            //Logging (remove for production)
+            echo '<p class="success">Query: '.$qu.'</p>';
+            //End logging
+
         if (!isset($_SESSION['result']) || $_SESSION['result'] === []){
-            $result = $db->query("SELECT * FROM randsdatabase.deere_equipment", MYSQLI_USE_RESULT);
+            $result = $db->query($qu, MYSQLI_USE_RESULT);
             $_SESSION['result'] = $result;
             if ($result){
                 while ($row = $result->fetch_assoc()){
                     array_push($equipment, $row[$title_column]);
                     $urls[$row[$title_column]] = $row[$url_column];
                 }
+                $num_rows = $result->num_rows;
                 $result->close();
                 $db->next_result();
             } else {
@@ -109,6 +119,7 @@
             }
         } else {
             $result = $_SESSION['result'];
+            echo '<p class="success">Query returned: '.$num_rows.' rows</p>';
         }
         
         if ($equipment === []){
