@@ -7,16 +7,7 @@ body{
 }
 
 option:hover{
-    background-color: #f1f1f1;
-}
-
-
-option:not(:last-child){
-    padding-bottom: 0.25rem;
-}
-
-option:not(:first-child){
-    padding-top: 0.25rem;
+    background-color: hsl(210, 10%, 64%);
 }
 
 option:checked{
@@ -34,4 +25,6 @@ option:checked{
 select{
     font-size: 1rem;
     width: 100%;
+    background-color: hsl(210, 10%, 34%);
+    color: seashell;
 }
