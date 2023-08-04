@@ -33,8 +33,11 @@
                 - Using an hard-coded sample URL, parse the JSON (bullet points)
                 - Get sample equipment selection and "fetch URLs"
             - August 4th
-                - Populate equipment list from SQL database (very slow!)
+                - Populate equipment list from SQL database (very slow! 90-120s, usually. If needed, a loader visualizer could be added, but it would require AJAX)
                 - Get equip_link value from SQL database for each selected equipment on form submission
+                - Get bullet points for selected equipment and display it client-side
+            - August 7th
+                - TODO: Return bullet points to the database by updating columns 
     -->
         <?php
         session_start();
@@ -101,34 +104,30 @@
         $urls = [];
 
         $qu = 'SELECT * FROM '.$database.'.'.$table;
-            //Logging (remove for production)
-            echo '<p class="success">Query: '.$qu.'</p>';
-            //End logging
+        //Logging (remove for production)
+        echo '<p class="success">Query: '.$qu.'</p>';
+        //End logging
 
-        if (!isset($_SESSION['result']) || $_SESSION['result'] === []){
-            $result = $db->query($qu, MYSQLI_USE_RESULT);
-            $_SESSION['result'] = $result;
-            if ($result){
-                while ($row = $result->fetch_assoc()){
-                    array_push($equipment, $row[$title_column]);
-                    $urls[$row[$title_column]] = $row[$url_column];
-                }
-                $num_rows = $result->num_rows;
-                $result->close();
-                $db->next_result();
-            } else {
-                echo '<p class="error">Database query error</p>';
+        $result = $db->query($qu, MYSQLI_USE_RESULT);
+
+        if ($result){
+            while ($row = $result->fetch_assoc()){
+                array_push($equipment, $row[$title_column]);
+                $urls[$row[$title_column]] = $row[$url_column];
             }
+            $num_rows = $result->num_rows;
+            $result->close();
+            $db->next_result();
         } else {
-            $result = $_SESSION['result'];
-            echo '<p class="success">Query returned: '.$num_rows.' rows</p>';
+            echo '<p class="error">Database query error</p>';
         }
+        
         
         // Logging (remove for production)
         if ($equipment === []){
             echo '<p class="error">Query result is empty; query refused</p>';
             if ($db){
-                echo '<p class="error">Database connection rate-limited</p>';
+                echo '<p class="error">Database connection presumably rate-limited</p>';
             }
             else {
                 echo '<p class="error">Query error</p>';
