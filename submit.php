@@ -82,7 +82,9 @@
 
                 // Get equipment URL
                 $e_url = equipment_getUrl($value);
+                // Logging (remove for production)
                 echo '<p>'.$value.' - '.$e_url.'</p>';
+                // End logging
 
                 // URL to JSON
                 $json = get_json($e_url);
