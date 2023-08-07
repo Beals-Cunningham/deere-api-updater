@@ -38,6 +38,7 @@
 
             //utility to update bullet_points in SQL database
             function update_bullet_points($url, $bullet_points){
+                global $db;
                 $can_update = !strpos($bullet_points, 'Failed to get JSON: URL returned "404 Not Found"');
                 if ($can_update){
                     $query = "UPDATE ".$_SESSION['database'].".".$_SESSION['table']." SET bullet_points = '$bullet_points' WHERE equip_link = '$url'";
@@ -68,7 +69,7 @@
 //------BEGIN main script-----------
             
             // Connect to database
-            $db = new mysqli($_SESSION['host'], $_SESSION['user'], $_SESSION['pass'], $_SESSION['database']);
+            $db = new mysqli($_SESSION['hostname'], $_SESSION['username'], $_SESSION['password'], $_SESSION['database']);
 
             if (array_key_exists('equipment', $_POST)){
             $equipment = $_POST['equipment'];
