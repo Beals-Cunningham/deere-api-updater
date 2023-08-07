@@ -5,6 +5,18 @@ Find additional info in `index.php` comments
 ## Preview
 * Download with `git clone` or download the zip file.
 * Run with `php -S localhost:9000` and navigate to `localhost:9000`
+* Add an .env file to the directory - get from https://github.com/josephhansen-bcss , as it's not safe to upload (contains password in plain text)
+    - USERNAME
+    - PASSWORD
+    - DATABASE
+    - TABLE
+    - CHARSET
+    - PORT
+    - HOSTNAME
+    - PRODUCTION
+    - TITLE_COLUMN
+    - URL_COLUMN
+    - BULLET_POINTS_PATH
 
 ## Status
 Currently, this script:
