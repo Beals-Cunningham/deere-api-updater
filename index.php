@@ -37,7 +37,8 @@
                 - Get equip_link value from SQL database for each selected equipment on form submission
                 - Get bullet points for selected equipment and display it client-side
             - August 7th
-                - TODO: Return bullet points to the database by updating columns 
+                - Update bullet_points column in SQL database with bullet points from John Deere API
+                - Get specs from John Deere API
     -->
         <?php
         session_start();
@@ -48,19 +49,27 @@
 
         $env = parse_ini_file('.env');
         $hostname = 'p:'.$env["HOSTNAME"];
+        $_SESSION['hostname'] = $hostname;
         $username = $env["USERNAME"];
+        $_SESSION['username'] = $username;
         $password = $env["PASSWORD"];
+        $_SESSION['password'] = $password;
         $database = $env["DATABASE"];
         $table = $env["TABLE"];
+        $_SESSION['table'] = $table;
+        $_SESSION['database'] = $database;
         $charset = $env["CHARSET"];
+        $_SESSION['charset'] = $charset;
         $port = $env["PORT"];
+        $_SESSION['port'] = $port;
         $production = $env["PRODUCTION"];
+        $_SESSION['production'] = $production;
 
         $_SESSION['$bullet_points_path'] = $env["BULLET_POINTS_PATH"];
 
         $num_rows = 0;
 
-        //These are set by John Deere- by storing them in an ENV, they be changed if John Deere updates their API
+        //These are set by John Deere- by storing them in an ENV, they can be changed if John Deere updates their API
         $url_column = $env["URL_COLUMN"];
         $title_column = $env["TITLE_COLUMN"];
 
@@ -116,8 +125,7 @@
                 $urls[$row[$title_column]] = $row[$url_column];
             }
             $num_rows = $result->num_rows;
-            $result->close();
-            $db->next_result();
+
         } else {
             echo '<p class="error">Database query error</p>';
         }
@@ -138,9 +146,6 @@
         // End logging
 
         $_SESSION['urls'] = $urls;
-
-        //end connection
-        mysqli_close($db);
         ?>
 
         <form action="submit.php" method="post">
