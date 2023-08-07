@@ -30,3 +30,5 @@ Currently, this script:
 * ### Requested columns other than `bullet_points` can't be updated, because the API doesn't return the information they use.
     - Until the data source for these columns can be identified, no further significant progress can be made. See Issue https://github.com/Beals-Cunningham/deere-api-updater/issues/2 for more information.
 
+## Limitations
+* Selecting more than 1000 items gives what *looks* like a fatal error while the submission is processing; it's just a warning that doesn't actually affect anything, but end users should be aware of this limitation 
