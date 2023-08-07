@@ -72,6 +72,15 @@
             
             // Connect to database
             $db = new mysqli($_SESSION['hostname'], $_SESSION['username'], $_SESSION['password'], $_SESSION['database']);
+            $db->set_charset($_SESSION['charset']);
+
+            // Logging (remove for production)
+            if ($db->connect_error){
+                echo '<p class="error">Database connection error</p>';
+            } else {
+                echo '<p class="success">Database connection successful</p>';
+            }
+            // End logging
 
             if (array_key_exists('equipment', $_POST)){
             $equipment = $_POST['equipment'];
