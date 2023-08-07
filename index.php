@@ -38,7 +38,6 @@
                 - Get bullet points for selected equipment and display it client-side
             - August 7th
                 - Update bullet_points column in SQL database with bullet points from John Deere API
-                - Get specs from John Deere API
     -->
         <?php
         session_start();
