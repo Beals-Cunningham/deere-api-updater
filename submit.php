@@ -29,7 +29,7 @@
                 }
             }
 
-            // utility to get "bullet points" from JSON
+            // utility to get bullet points from JSON
             function get_bullet_points($json){
                 $bullet_points_path_array = explode('.', $_SESSION['$bullet_points_path']);
                 $bullet_points = $json[$bullet_points_path_array[0]][$bullet_points_path_array[1]][$bullet_points_path_array[2]];
@@ -111,7 +111,7 @@
                     }
                 // End logging
                 
-            }else {echo '<p class="error">Failed to get JSON: URL returned "404 Not Found"</p>';}});}
+            } else {echo '<p class="error">Failed to get JSON: URL returned "404 Not Found"</p>';}});}
 
             // No equipment selected; error
             else {
