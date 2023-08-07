@@ -42,7 +42,9 @@
                 $can_update = !strpos($bullet_points, 'Failed to get JSON: URL returned "404 Not Found"');
                 if ($can_update){
                     $query = "UPDATE ".$_SESSION['database'].".".$_SESSION['table']." SET bullet_points = '$bullet_points' WHERE equip_link = '$url'";
+                    // Logging (remove for production)
                     echo '<p> Query: '.$query.'</p>';
+                    // End logging
                     $result = $db -> query($query);
                     if ($result){
                         return true;
