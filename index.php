@@ -150,7 +150,7 @@
         <form action="submit.php" method="post">
         <input type="submit" value="Submit"><br/>
             <label for="equipment">Equipment:</label>
-            <select name="equipment[]" id="equipment" multiple size=50>
+            <select name="equipment[]" id="equipment" multiple size=<?php if ($production){echo 60;} else {echo 40;}?>>
                 <?php
                 foreach ($equipment as $key => $value){
                     echo '<option value="'.$value.'">'.$value.'</option>';
