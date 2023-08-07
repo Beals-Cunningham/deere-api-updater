@@ -15,5 +15,6 @@ Currently, this script:
 ![screenshot of updated results](https://i.postimg.cc/8c0TXLW2/Screenshot-2023-08-07-at-9-41-29-AM.png)
 
 ## Blockers
-* ** Requested columns other than `bullet_points` can't be updated, because the API doesn't return the information they use.** Until the data source for these columns can be identified, no further significant progress can be made. See https://github.com/Beals-Cunningham/deere-api-updater/issues/2 for more information.
+* ### Requested columns other than `bullet_points` can't be updated, because the API doesn't return the information they use.
+ Until the data source for these columns can be identified, no further significant progress can be made. See https://github.com/Beals-Cunningham/deere-api-updater/issues/2 for more information.
 
