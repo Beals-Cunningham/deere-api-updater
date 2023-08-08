@@ -40,6 +40,7 @@
                 - Update bullet_points column in SQL database with bullet points from John Deere API
             - August 8th
                 - Meeting with project manager to discuss next steps and add them to organization [Beals Cunningham](https://github.com/Beals-Cunningham)
+                - Reduce initial SQL query, reducing load time to ~2s (from ~120s) (a 60x improvement)
     -->
         <?php
         session_start();
@@ -113,7 +114,7 @@
         $equipment = [];
         $urls = [];
 
-        $qu = 'SELECT * FROM '.$database.'.'.$table;
+        $qu = 'SELECT '.$title_column.', '.$url_column.' FROM '.$database.'.'.$table;
         //Logging (remove for production)
         echo '<p class="success">Query: '.$qu.'</p>';
         //End logging
