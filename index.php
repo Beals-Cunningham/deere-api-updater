@@ -88,7 +88,9 @@
         $title_column = $env["TITLE_COLUMN"];
 
         //Logging (remove for production)
+        if (!$production){
         echo ( !$production ? '<span class = "success">Using development environment</span>' : '<span class = "error">Using production environment- if you\'re seeing this, you\'ve done something very wrong</span>');
+        
 
         if ($hostname){
             echo '<p class="success">Successfully read .ENV values</p>';
@@ -100,6 +102,7 @@
 
         echo '<p class = "success">'.'Client: '.$_SERVER['REMOTE_ADDR'].'</p>';
         echo '<p class = "success">'.'Protocol: '.$_SERVER['SERVER_PROTOCOL'].'</p>';
+        }
         //End logging
 
 
@@ -115,11 +118,12 @@
         $db->set_charset($charset);
 
         //Logging (remove for production)
-        if ($db->connect_error){
-            echo '<p class="error">Database connection error</p>';
-        } else {
-            echo '<p class="success">Database connection successful</p>';
-        }
+        if (!$production){
+            if ($db->connect_error){
+                echo '<p class="error">Database connection error</p>';
+            } else {
+                echo '<p class="success">Database connection successful</p>';
+        }}
         //End logging
 
         //populate form from database
@@ -128,7 +132,7 @@
 
         $qu = 'SELECT '.$title_column.', '.$url_column.' FROM '.$database.'.'.$table;
         //Logging (remove for production)
-        echo '<p class="success">Query: '.$qu.'</p>';
+        if (!$production){echo '<p class="success">Query: '.$qu.'</p>';}
         //End logging
 
         $result = $db->query($qu, MYSQLI_USE_RESULT);
@@ -146,17 +150,18 @@
         
         
         // Logging (remove for production)
-        if ($equipment === []){
-            echo '<p class="error">Query result is empty; query refused</p>';
-            if ($db){
-                echo '<p class="error">Database connection presumably rate-limited</p>';
-            }
-            else {
-                echo '<p class="error">Query error</p>';
-            }
-        } else {
-            echo '<p class="success">Equipment list populated</p>';
-        }
+        if (!$production){
+            if ($equipment === []){
+                echo '<p class="error">Query result is empty; query refused</p>';
+                if ($db){
+                    echo '<p class="error">Database connection presumably rate-limited</p>';
+                }
+                else {
+                    echo '<p class="error">Query error</p>';
+                }
+            } else {
+                echo '<p class="success">Equipment list populated</p>';
+        }}
         // End logging
 
         $_SESSION['urls'] = $urls;
