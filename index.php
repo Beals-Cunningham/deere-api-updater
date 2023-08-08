@@ -1,6 +1,15 @@
 <html>
     <head>
-        <link rel="stylesheet" href="style.css">
+        <?php 
+        $env = parse_ini_file('.env');
+        $production = $env['PRODUCTION'];
+        if ($production){
+            echo '<link rel="stylesheet" href="production-style.css">';
+        } else {
+            echo '<link rel="stylesheet" href="style.css">';
+        }
+        ?>
+
     </head>
     <body>
         <!--
