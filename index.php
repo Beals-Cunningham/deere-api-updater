@@ -1,7 +1,15 @@
 <html>
     <head>
-        <link rel="stylesheet" href="style.css">
-        <script src="/utils/isolater.js" type="text/javascript"></script>
+        <?php 
+        $env = parse_ini_file('.env');
+        $production = $env['PRODUCTION'];
+        if ($production){
+            echo '<link rel="stylesheet" href="production-style.css">';
+        } else {
+            echo '<link rel="stylesheet" href="style.css">';
+        }
+        ?>
+
     </head>
     <body>
         <!--
@@ -41,6 +49,7 @@
                 - Update bullet_points column in SQL database with bullet points from John Deere API
             - August 8th
                 - Meeting with project manager to discuss next steps and add them to organization [Beals Cunningham](https://github.com/Beals-Cunningham)
+                - Reduce initial SQL query, reducing load time to ~2s (from ~120s) (a 60x improvement)
     -->
         <?php
         session_start();
@@ -68,6 +77,9 @@
         $_SESSION['production'] = $production;
 
         $_SESSION['$bullet_points_path'] = $env["BULLET_POINTS_PATH"];
+        $_SESSION['$features_path'] = $env["FEATURES_PATH"];
+        $_SESSION['$specs_path'] = $env["SPECIFICATIONS_PATH"];
+        $_SESSION['$accessories_path'] = $env["ACCESSORIES_PATH"];
 
         $num_rows = 0;
 
@@ -76,7 +88,9 @@
         $title_column = $env["TITLE_COLUMN"];
 
         //Logging (remove for production)
+        if (!$production){
         echo ( !$production ? '<span class = "success">Using development environment</span>' : '<span class = "error">Using production environment- if you\'re seeing this, you\'ve done something very wrong</span>');
+        
 
         if ($hostname){
             echo '<p class="success">Successfully read .ENV values</p>';
@@ -88,6 +102,7 @@
 
         echo '<p class = "success">'.'Client: '.$_SERVER['REMOTE_ADDR'].'</p>';
         echo '<p class = "success">'.'Protocol: '.$_SERVER['SERVER_PROTOCOL'].'</p>';
+        }
         //End logging
 
 
@@ -103,11 +118,12 @@
         $db->set_charset($charset);
 
         //Logging (remove for production)
-        if ($db->connect_error){
-            echo '<p class="error">Database connection error</p>';
-        } else {
-            echo '<p class="success">Database connection successful</p>';
-        }
+        if (!$production){
+            if ($db->connect_error){
+                echo '<p class="error">Database connection error</p>';
+            } else {
+                echo '<p class="success">Database connection successful</p>';
+        }}
         //End logging
 
         //populate form from database
@@ -116,7 +132,7 @@
 
         $qu = 'SELECT '.$title_column.', '.$url_column.' FROM '.$database.'.'.$table;
         //Logging (remove for production)
-        echo '<p class="success">Query: '.$qu.'</p>';
+        if (!$production){echo '<p class="success">Query: '.$qu.'</p>';}
         //End logging
 
         $result = $db->query($qu, MYSQLI_USE_RESULT);
@@ -134,17 +150,18 @@
         
         
         // Logging (remove for production)
-        if ($equipment === []){
-            echo '<p class="error">Query result is empty; query refused</p>';
-            if ($db){
-                echo '<p class="error">Database connection presumably rate-limited</p>';
-            }
-            else {
-                echo '<p class="error">Query error</p>';
-            }
-        } else {
-            echo '<p class="success">Equipment list populated</p>';
-        }
+        if (!$production){
+            if ($equipment === []){
+                echo '<p class="error">Query result is empty; query refused</p>';
+                if ($db){
+                    echo '<p class="error">Database connection presumably rate-limited</p>';
+                }
+                else {
+                    echo '<p class="error">Query error</p>';
+                }
+            } else {
+                echo '<p class="success">Equipment list populated</p>';
+        }}
         // End logging
 
         $_SESSION['urls'] = $urls;
