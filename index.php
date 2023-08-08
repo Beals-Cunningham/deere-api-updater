@@ -38,6 +38,8 @@
                 - Get bullet points for selected equipment and display it client-side
             - August 7th
                 - Update bullet_points column in SQL database with bullet points from John Deere API
+            - August 8th
+                - Meeting with project manager to discuss next steps and add them to organization [Beals Cunningham](https://github.com/Beals-Cunningham)
     -->
         <?php
         session_start();
