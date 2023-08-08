@@ -22,9 +22,7 @@ Find additional info in `index.php` comments
 Currently, this script:
 * Connects to the database (currently hard-coded through environment variables to the R and S database)
 * Pulls the list of equipment from the John Deere API and populates a (searchable) multi-select form
-![screenshot of the form, with searching](https://i.postimg.cc/bNk5BQQ1/Screenshot-2023-08-07-at-9-39-42-AM.png)
 * Processes selected equipment, updating the database
-![screenshot of updated results](https://i.postimg.cc/8c0TXLW2/Screenshot-2023-08-07-at-9-41-29-AM.png)
 
 ## Blockers
 
