@@ -165,11 +165,21 @@
         // End logging
 
         $_SESSION['urls'] = $urls;
+        echo '<h2>Select and Update Deere Equipment</h2>';
+        echo '<h3>Selecting Equipment</h3>';
+        echo '<p>Click on equipment to select. Use Shift for multiple select where equipment is next to each other in the list. Use Cmd + Click on Mac or Ctrl + Click on Windows to select multiple that aren\'t next to each other.</p>';
+        echo '<p>Press Cmd/Ctrl + F to Search within the list. Matching results will be highlighted in the list.</p>';
+        echo '<p>Click "Submit" (either at the top or bottom of the list) to submit your selections for updates.</p>';
+
         ?>
 
-        <form action="submit.php" method="post">
+        <form action="submit.php" method="post" id = "equipment-select">
+        <!-- <input type='text' name='search' id='equipment-select-search' placeholder='Search' autocomplete='off' onkeyup='search()'> -->
+        <?php
+        # I've removed the search bar for now, as I can't get the search() function to connect regardless of how I load the JS file
+        ?>
         <input type="submit" value="Submit"><br/>
-            <label for="equipment">Equipment:</label>
+
             <select name="equipment[]" id="equipment" multiple size=<?php if ($production){echo 60;} else {echo 40;}?>>
                 <?php
                 foreach ($equipment as $key => $value){
@@ -177,6 +187,7 @@
                 }
                 ?>
             </select>
+            <br/>
             <input type="submit" value="Submit">
     </body>
 </html>
