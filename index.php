@@ -77,6 +77,9 @@
         $_SESSION['production'] = $production;
 
         $_SESSION['$bullet_points_path'] = $env["BULLET_POINTS_PATH"];
+        $_SESSION['$features_path'] = $env["FEATURES_PATH"];
+        $_SESSION['$specs_path'] = $env["SPECIFICATIONS_PATH"];
+        $_SESSION['$accessories_path'] = $env["ACCESSORIES_PATH"];
 
         $num_rows = 0;
 
