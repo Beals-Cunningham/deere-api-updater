@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css">
+        <script src="/utils/isolater.js" type="text/javascript"></script>
     </head>
     <body>
         <!--
@@ -113,7 +114,7 @@
         $equipment = [];
         $urls = [];
 
-        $qu = 'SELECT * FROM '.$database.'.'.$table;
+        $qu = 'SELECT '.$title_column.', '.$url_column.' FROM '.$database.'.'.$table;
         //Logging (remove for production)
         echo '<p class="success">Query: '.$qu.'</p>';
         //End logging
@@ -149,7 +150,8 @@
         $_SESSION['urls'] = $urls;
         ?>
 
-        <form action="submit.php" method="post">
+        <form action="submit.php" method="post" id = "equipment-select">
+        <input type='text' name='search' id='equipment-select-search' placeholder='Search' autocomplete='off' onkeyup='search()'>
         <input type="submit" value="Submit"><br/>
             <label for="equipment">Equipment:</label>
             <select name="equipment[]" id="equipment" multiple size=<?php if ($production){echo 60;} else {echo 40;}?>>
