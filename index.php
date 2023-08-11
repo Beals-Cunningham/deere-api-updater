@@ -60,6 +60,9 @@
 
         $env = parse_ini_file('.env');
         $hostname = 'p:'.$env["HOSTNAME"];
+        if (!$hostname){
+            $hostname = 'p:localhost';
+        }
         $_SESSION['hostname'] = $hostname;
         $username = $env["USERNAME"];
         $_SESSION['username'] = $username;
